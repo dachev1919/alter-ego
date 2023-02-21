@@ -18,9 +18,13 @@ import { styled } from '@mui/styles';
 import { setLang } from '../api/lang-slice';
 
 const CustomSelect = styled(Select)(() => ({
-	width: 60,
+	width: 67,
 	'&.MuiOutlinedInput-root': {
 		'& fieldset': {
+			borderColor: '#a6a6a6',
+			color: '#a6a6a6'
+		},
+		'& *': {
 			borderColor: '#a6a6a6',
 			color: '#a6a6a6'
 		},
@@ -119,7 +123,7 @@ const HeaderProfile: FC = () => {
 					</MenuItem>
 				))}
 			</Menu>
-			<FormControl size='small' sx={{ marginLeft: '1rem' }}>
+			<FormControl size='small' sx={{ marginLeft: '.6rem' }}>
 				<CustomSelect
 					sx={{ color: 'white' }}
 					labelId='demo-simple-select-label'
