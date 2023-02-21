@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { newsApi } from '../modules/news/api/repository';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import userStateSlice from '../modules/auth/api/user-state';
 
 const rootReducers = combineReducers({
+	userState: userStateSlice,
 	[newsApi.reducerPath]: newsApi.reducer
 });
 

@@ -1,8 +1,10 @@
 import React, { FC, useState } from 'react';
-import { Button, Container, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import { useGetNewsQuery } from '../api/repository';
 import { INewsArray } from '../api/dto/news.in';
 import NewsList from '../components/news-list/NewsList';
+import Section from '../../../common/components/section/Section';
+import i18next from 'i18next';
 
 export type TypeDeletingNewsHandler = (id: number) => void;
 const STEP: number = 10;
@@ -18,11 +20,11 @@ const News: FC = () => {
 	let news: INewsArray | [] = data && data.news ? data.news : [];
 
 	if (error) {
-		return <h1>error</h1>;
+		return <h1>{i18next.t('newsPage.loadingDataError')}</h1>;
 	}
 
 	if (isLoading || !news) {
-		return <h1>data is loading</h1>;
+		return <h1>{i18next.t('newsPage.dataLoading')}</h1>;
 	}
 
 	const loadMoreHandler = () => {
@@ -31,30 +33,21 @@ const News: FC = () => {
 	};
 
 	return (
-		<section>
-			<Container maxWidth='xl'>
-				<Typography
-					sx={{ textAlign: 'center', padding: '2rem 0' }}
-					variant='h3'
-					component='h1'
+		<Section title={i18next.t('newsPage.sectionTitle')}>
+			<NewsList news={news} />
+			{end < LIMIT && news.length > 0 && (
+				<Button
+					sx={{
+						display: 'block',
+						margin: '0 auto'
+					}}
+					variant='contained'
+					onClick={loadMoreHandler}
 				>
-					News
-				</Typography>
-				<NewsList news={news} />
-				{end < LIMIT && news.length > 0 && (
-					<Button
-						sx={{
-							display: 'block',
-							margin: '0 auto'
-						}}
-						variant='contained'
-						onClick={loadMoreHandler}
-					>
-						Load More
-					</Button>
-				)}
-			</Container>
-		</section>
+					Load More
+				</Button>
+			)}
+		</Section>
 	);
 };
 

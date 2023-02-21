@@ -1,29 +1,33 @@
 import React, { FC } from 'react';
-import styles from './Footer.module.scss';
-import { Container, Box } from '@mui/material';
+import { Container, Box, List, ListItem, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useTheme } from '@mui/material/styles';
+import styles from './Footer.module.scss';
+import i18next from 'i18next';
 
 interface IFooterLinks {
 	title: string;
 	link: string;
 }
 
-const LINKS: IFooterLinks[] = [
-	{
-		title: 'Home',
-		link: '/alter-ego'
-	},
-	{
-		title: 'News',
-		link: '/alter-ego/news'
-	},
-	{
-		title: 'Profile',
-		link: '/alter-ego/profile'
-	}
-];
-
 const Footer: FC = () => {
+	const LINKS: IFooterLinks[] = [
+		{
+			title: i18next.t('footer.footerLink1'),
+			link: '/alter-ego'
+		},
+		{
+			title: i18next.t('footer.footerLink2'),
+			link: '/alter-ego/news'
+		},
+		{
+			title: i18next.t('footer.footerLink3'),
+			link: '/alter-ego/profile'
+		}
+	];
+
+	const theme = useTheme();
+
 	return (
 		<footer className={styles.footer}>
 			<Container maxWidth='xl'>
@@ -31,18 +35,26 @@ const Footer: FC = () => {
 					sx={{
 						display: 'flex',
 						alignItems: 'center',
-						flexDirection: 'column',
-						mr: 1
+						flexDirection: 'column'
 					}}
 				>
-					<ul className={styles.pages}>
+					<List sx={{ display: 'flex' }}>
 						{LINKS.map(({ title, link }) => (
-							<li key={title}>
+							<ListItem key={title} sx={{ fontSize: '.9rem' }}>
 								<Link to={link}>{title}</Link>
-							</li>
+							</ListItem>
 						))}
-					</ul>
-					<p className={styles.developed}>Developed by Oleh Dachev</p>
+					</List>
+					<Typography
+						component='p'
+						sx={{
+							color: theme.custom!['gray-400'],
+							userSelect: 'none',
+							fontSize: '.7rem'
+						}}
+					>
+						{i18next.t('footer.developedBy')}
+					</Typography>
 				</Box>
 			</Container>
 		</footer>
