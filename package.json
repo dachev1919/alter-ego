@@ -9,6 +9,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.9",
+    "@mui/styles": "^5.11.9",
     "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.0.0",

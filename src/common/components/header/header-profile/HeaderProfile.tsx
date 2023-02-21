@@ -1,10 +1,12 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import {
 	Avatar,
 	Box,
+	FormControl,
 	IconButton,
 	Menu,
 	MenuItem,
+	Select,
 	Tooltip
 } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -12,6 +14,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../store/store';
 import { userAuthState } from '../../../../modules/auth/api/user-state';
 import i18next from 'i18next';
+import { styled } from '@mui/styles';
+import { setLang } from '../api/lang-slice';
+
+const CustomSelect = styled(Select)(() => ({
+	width: 60,
+	'&.MuiOutlinedInput-root': {
+		'& fieldset': {
+			borderColor: '#a6a6a6',
+			color: '#a6a6a6'
+		},
+		'& svg': {
+			right: '2px',
+			color: '#a6a6a6'
+		},
+		'&:hover fieldset': {
+			borderColor: '#858585'
+		},
+		'&.Mui-focused fieldset': {
+			borderColor: 'white'
+		}
+	}
+}));
 
 interface IHeaderProfileLinks {
 	title: string;
@@ -43,10 +67,15 @@ const HeaderProfile: FC = () => {
 	const settings: IHeaderProfileLinks[] = isAuth
 		? SETTINGS_IDENT
 		: SETTINGS_NOT_IDENT;
+	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+	const { lang } = useSelector((state: RootState) => state.langSlice);
+	const [language, setLanguage] = React.useState(lang);
 
-	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-		null
-	);
+	const handleChange = (event: any) => {
+		const value = event.target.value as string;
+		setLanguage(value);
+		dispatch(setLang(value));
+	};
 
 	function logoutHandler() {
 		dispatch(userAuthState(false));
@@ -90,6 +119,18 @@ const HeaderProfile: FC = () => {
 					</MenuItem>
 				))}
 			</Menu>
+			<FormControl size='small' sx={{ marginLeft: '1rem' }}>
+				<CustomSelect
+					sx={{ color: 'white' }}
+					labelId='demo-simple-select-label'
+					id='demo-simple-select'
+					value={language}
+					onChange={e => handleChange(e)}
+				>
+					<MenuItem value='uk'>UK</MenuItem>
+					<MenuItem value='en-US'>EN</MenuItem>
+				</CustomSelect>
+			</FormControl>
 		</Box>
 	);
 };

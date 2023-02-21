@@ -5,12 +5,15 @@ import Footer from '../footer/Footer';
 import { Box, ThemeProvider } from '@mui/material';
 import { theme } from '../../../utils/theme';
 import i18n from 'i18next';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/store';
 
 const Layout: FC = () => {
+	const { lang } = useSelector((state: RootState) => state.langSlice);
+
 	useEffect(() => {
-		const lng = navigator.language;
-		i18n.changeLanguage(lng);
-	}, []);
+		i18n.changeLanguage(lang);
+	}, [lang]);
 
 	return (
 		<Box

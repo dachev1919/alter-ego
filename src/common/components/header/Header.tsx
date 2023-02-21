@@ -148,7 +148,6 @@ const Header: FC = () => {
 								</Link>
 							))}
 						</Box>
-
 						<HeaderProfile />
 					</Toolbar>
 				</Container>

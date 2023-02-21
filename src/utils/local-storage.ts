@@ -1,5 +1,5 @@
 // const data = readLocalStorage<MyData>('myData');
-export const readLocalStorage = <T>(key: string): T | null => {
+export const readLocalStorage = <T>(key: string): T | undefined => {
 	const item = localStorage.getItem(key);
 
 	if (item) {
@@ -8,11 +8,11 @@ export const readLocalStorage = <T>(key: string): T | null => {
 		} catch (error) {
 			console.error(`Error parsing item from localstorage: ${error}`);
 
-			return null;
+			return undefined;
 		}
 	}
 
-	return null;
+	return undefined;
 };
 
 // writeLocalStorage<MyData>('myData', data);
